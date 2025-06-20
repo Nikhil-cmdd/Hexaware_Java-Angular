@@ -1,0 +1,37 @@
+http://localhost:9312/addPatient -POST
+
+{
+"name": "Asha Reddy",
+"dob": "1993-04-10",
+"gender": "Female",
+"contactNumber": "9876543220",
+"email": "asha.reddy@example.com",
+"password": "asha123",
+"address": "Vijayawada"
+}
+
+http://localhost:9312/updatePatient/2-PUT
+
+{
+"name": "Asha Reddy",
+"dob": "1993-04-10",
+"gender": "Female",
+"contactNumber": "9873543220",
+"email": "ashreddy@example.com",
+"password": "asha123",
+"address": "Vijayawada"
+}
+
+http://localhost:9312/getPatientByName?name=Asha-GET
+
+http://localhost:9312/patients/login-POST
+{
+    "patientId": 1,
+    "name": "Ananya Rao",
+    "dob": "1995-07-21",
+    "gender": "Female",
+    "contactNumber": "9876543215",
+    "email": "ananya.rao@example.com",
+    "password": "ananya12",
+    "address": "Bangalore"
+}
