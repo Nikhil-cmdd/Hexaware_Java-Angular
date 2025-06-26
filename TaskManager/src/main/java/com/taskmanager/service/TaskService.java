@@ -1,42 +1,57 @@
 package com.taskmanager.service;
 
-import com.taskmanager.entity.Task;
-import com.taskmanager.repository.TaskRepository;
+
+import com.taskmanager.exception.TaskNotFoundException;
+import com.taskmanager.model.Task;
+import com.taskmanager.repo.TaskRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TaskService {
 
     @Autowired
-    private TaskRepository taskRepo;
+    private TaskRepository taskRepository;
 
     public List<Task> getAllTasks() {
-        return taskRepo.findAll();
+        return taskRepository.findAll();
     }
 
-    public Optional<Task> getTask(Long id) {
-        return taskRepo.findById(id);
+    public ResponseEntity<Task> getTaskById(int id) throws TaskNotFoundException {
+        Task task = taskRepository.findById(id)
+                .orElseThrow(() -> new TaskNotFoundException("Task not found with ID: " + id));
+        return new ResponseEntity<>(task, HttpStatus.OK);
     }
 
-    public Task createTask(Task task) {
-        return taskRepo.save(task);
+    public ResponseEntity<Task> createTask(Task task) {
+        Task savedTask = taskRepository.save(task);
+        return new ResponseEntity<>(savedTask, HttpStatus.OK);
     }
 
-    public Task updateTask(Long id, Task updatedTask) {
-        Task task = taskRepo.findById(id).orElseThrow(() -> new RuntimeException("Task not found"));
-        task.setTitle(updatedTask.getTitle());
-        task.setDescription(updatedTask.getDescription());
-        task.setDueDate(updatedTask.getDueDate());
-        task.setPriority(updatedTask.getPriority());
-        task.setStatus(updatedTask.getStatus());
-        return taskRepo.save(task);
+    public ResponseEntity<String> updateTask(int id, Task updatedTask) throws TaskNotFoundException {
+        Task oldTask = taskRepository.findById(id)
+                .orElseThrow(() -> new TaskNotFoundException("Task not found with ID: " + id));
+
+        oldTask.setTitle(updatedTask.getTitle());
+        oldTask.setDescription(updatedTask.getDescription());
+        oldTask.setDueDate(updatedTask.getDueDate());
+        oldTask.setPriority(updatedTask.getPriority());
+       oldTask.setStatus(updatedTask.getStatus());
+
+        Task newTask = taskRepository.save(oldTask);
+        return ResponseEntity.ok("Task with ID " + id + " updated successfully...");
     }
 
-    public void deleteTask(Long id) {
-        taskRepo.deleteById(id);
+    public ResponseEntity<String> deleteTask(int id) throws TaskNotFoundException {
+        if (!taskRepository.existsById(id)) {
+            throw new TaskNotFoundException("Task not found with ID: " + id);
+        }
+        taskRepository.deleteById(id);
+        return ResponseEntity.ok("Task with ID " + id + " deleted successfully...");
     }
 }
