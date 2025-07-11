@@ -1,0 +1,49 @@
+<div>
+  <h2>Update Task</h2>
+
+  <input [(ngModel)]="taskId" placeholder="Task ID" />
+
+  <input [(ngModel)]="task.title" placeholder="Title" />
+  <input [(ngModel)]="task.description" placeholder="Description" />
+  <input [(ngModel)]="task.dueDate" placeholder="Due Date" type="date" />
+
+  <select [(ngModel)]="task.priority" name="priority" required>
+    <option value="" disabled selected>Select Priority</option>
+    <option value="LOW">Low</option>
+    <option value="MEDIUM">Medium</option>
+    <option value="HIGH">High</option>
+  </select>
+
+  <select [(ngModel)]="task.status" name="status" required>
+    <option value="" disabled selected>Select Status</option>
+    <option value="NOT_STARTED">Not Started</option>
+    <option value="IN_PROGRESS">In Progress</option>
+    <option value="COMPLETED">Completed</option>
+  </select>
+
+  <button (click)="update()">Update</button>
+  <p *ngIf="message">{{message}}</p>
+</div>
+
+<div class="tasks-list-container">
+  <h2>All Tasks</h2>
+
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <ul *ngIf="tasks && tasks.length > 0; else noTasks">
+    <li *ngFor="let task of tasks" class="task-item">
+      <div><strong>ID:</strong> {{ task.taskId }}</div>
+      <div><strong>Title:</strong> {{ task.title }}</div>
+      <div><strong>Description:</strong> {{ task.description || 'No description' }}</div>
+      <div><strong>Due Date:</strong> {{ task.dueDate ? (task.dueDate | date:'mediumDate') : 'No due date' }}</div>
+      <div><strong>Priority:</strong> {{ task.priority }}</div>
+      <div><strong>Status:</strong> {{ task.status }}</div>
+    </li>
+  </ul>
+
+  <ng-template #noTasks>
+    <p>No tasks available.</p>
+  </ng-template>
+</div>

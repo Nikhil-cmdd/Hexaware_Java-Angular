@@ -1,0 +1,11 @@
+<div>
+  <h2>Get Task By ID</h2>
+  <input [(ngModel)]="taskId" placeholder="Enter Task ID" />
+  <button (click)="fetchTask()">Get Task</button>
+
+  <div *ngIf="task">
+    <p>Title: {{task.title}}</p>
+    <p>Description: {{task.description}}</p>
+    <p>Status: {{task.status}}</p>
+  </div>
+</div>

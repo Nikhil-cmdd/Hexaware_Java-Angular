@@ -1,0 +1,75 @@
+
+div {
+  max-width: 720px;
+  margin: 30px auto;
+  padding: 0 15px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #007BFF;
+}
+
+
+div[style*="color: red"] {
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+
+li {
+  background-color: #ffffff;
+  border: 1.5px solid #000000;
+  border-radius: 8px;
+  padding: 15px 20px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+  cursor: default;
+  font-size: 14px; 
+}
+
+
+li:hover {
+  box-shadow: 0 10px 25px rgba(0, 123, 255, 0.2);
+  border-color: #0ad0eb;
+}
+
+
+li div {
+  margin-bottom: 6px;
+  color: #333;
+}
+
+
+li div strong {
+  color: #0056b3;
+}
+
+
+ng-template p {
+  text-align: center;
+  color: #777;
+  font-style: italic;
+  margin-top: 20px;
+}
+
+
+@media (max-width: 600px) {
+  ul {
+    grid-template-columns: 1fr;
+  }
+}

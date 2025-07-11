@@ -1,0 +1,25 @@
+<div>
+  <h2>Create Task</h2>
+  <form (ngSubmit)="create()">
+    <input [(ngModel)]="newTask.title" name="title" placeholder="Title" required />
+    <input [(ngModel)]="newTask.description" name="description" placeholder="Description" required />
+    <input [(ngModel)]="newTask.dueDate" name="dueDate" placeholder="Due Date" type="date" required />
+
+    <select [(ngModel)]="newTask.priority" name="priority" required>
+  <option value="" disabled selected>Select Priority</option>
+  <option value="LOW">Low</option>
+  <option value="MEDIUM">Medium</option>
+  <option value="HIGH">High</option>
+</select>
+
+<select [(ngModel)]="newTask.status" name="status" required>
+  <option value="" disabled>Select Status</option>
+  <option value="PENDING">Not Started</option>
+  <option value="IN_PROGRESS">In Progress</option> 
+  <option value="COMPLETED">Completed</option>
+</select>
+
+    <button type="submit">Create</button>
+  </form>
+  <p *ngIf="message">{{message}}</p>
+</div>

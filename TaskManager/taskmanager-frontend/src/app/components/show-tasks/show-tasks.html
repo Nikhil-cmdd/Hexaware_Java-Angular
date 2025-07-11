@@ -1,0 +1,22 @@
+<div>
+  <h2>All Tasks</h2>
+
+  <div *ngIf="errorMessage" style="color: red;">
+    {{ errorMessage }}
+  </div>
+
+  <ul *ngIf="tasks && tasks.length > 0; else noTasks">
+    <li *ngFor="let task of tasks" style="margin-bottom: 1em; border-bottom: 1px solid #ccc; padding-bottom: 0.5em;">
+      <div><strong>ID:</strong> {{ task.taskId }}</div>
+      <div><strong>Title:</strong> {{ task.title }}</div>
+      <div><strong>Description:</strong> {{ task.description || 'No description' }}</div>
+      <div><strong>Due Date:</strong> {{ task.dueDate ? (task.dueDate | date:'mediumDate') : 'No due date' }}</div>
+      <div><strong>Priority:</strong> {{ task.priority }}</div>
+      <div><strong>Status:</strong> {{ task.status }}</div>
+    </li>
+  </ul>
+
+  <ng-template #noTasks>
+    <p>No tasks available.</p>
+  </ng-template>
+</div>

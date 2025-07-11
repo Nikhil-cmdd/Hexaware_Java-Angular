@@ -1,0 +1,30 @@
+<div class="login-container">
+  <h2>Login</h2>
+  <form (ngSubmit)="generate()">
+    <div>
+      <label for="username">Username:</label>
+      <input
+        type="text"
+        id="username"
+        [(ngModel)]="userName"
+        name="username"
+        required
+        placeholder="Enter username"
+      />
+    </div>
+
+    <div>
+      <label for="password">Password:</label>
+      <input
+        type="password"
+        id="password"
+        [(ngModel)]="passWord"
+        name="password"
+        required
+        placeholder="Enter password"
+      />
+    </div>
+
+    <button type="submit">Login</button>
+  </form>
+</div>

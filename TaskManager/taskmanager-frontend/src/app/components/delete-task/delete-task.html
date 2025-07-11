@@ -1,0 +1,36 @@
+<div class="delete-task-container">
+  <h2>Delete Task</h2>
+
+  <div class="delete-form">
+    <label for="taskId">Task ID:</label>
+    <input type="number" id="taskId" [(ngModel)]="taskId" placeholder="Enter Task ID" />
+    <button (click)="delete()">Delete</button>
+  </div>
+
+  <div *ngIf="message" class="message">
+    {{ message }}
+  </div>
+</div>
+
+<div class="tasks-list-container">
+  <h2>All Tasks</h2>
+
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <ul *ngIf="tasks && tasks.length > 0; else noTasks">
+    <li *ngFor="let task of tasks" class="task-item">
+      <div><strong>ID:</strong> {{ task.taskId }}</div>
+      <div><strong>Title:</strong> {{ task.title }}</div>
+      <div><strong>Description:</strong> {{ task.description || 'No description' }}</div>
+      <div><strong>Due Date:</strong> {{ task.dueDate ? (task.dueDate | date:'mediumDate') : 'No due date' }}</div>
+      <div><strong>Priority:</strong> {{ task.priority }}</div>
+      <div><strong>Status:</strong> {{ task.status }}</div>
+    </li>
+  </ul>
+
+  <ng-template #noTasks>
+    <p>No tasks available.</p>
+  </ng-template>
+</div>

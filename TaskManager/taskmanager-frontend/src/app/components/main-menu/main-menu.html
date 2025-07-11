@@ -1,0 +1,37 @@
+<div class="menu-container">
+  <h2>Task Management Main Menu</h2>
+  
+  <select [(ngModel)]="selectedOption">
+    <option value="">Select an option</option>
+    <option value="show">Show All Tasks</option>
+    <option value="get">Get Task By ID</option>
+    <option value="create">Create Task</option>
+    <option value="update">Update Task</option>
+    <option value="delete">Delete Task</option>
+  </select>
+</div>
+
+<div *ngIf="selectedOption === 'show'">
+ 
+  <app-show-tasks></app-show-tasks>
+</div>
+
+<div *ngIf="selectedOption === 'get'">
+
+  <app-get-task-by-id></app-get-task-by-id>
+</div>
+
+<div *ngIf="selectedOption === 'create'">
+
+  <app-create-task></app-create-task>
+</div>
+
+<div *ngIf="selectedOption === 'update'">
+ 
+  <app-update-task></app-update-task>
+</div>
+
+<div *ngIf="selectedOption === 'delete'">
+ 
+  <app-delete-task></app-delete-task>
+</div>
