@@ -1,79 +1,88 @@
-# Amazecare
+# AmazeCare - Hospital Management System
 
-Amazecare is a full-stack healthcare management platform. This repository contains the **frontend** (Angular) application. The backend is expected to be a separate service (see below).
-
----
-
-## Table of Contents
-- [Project Overview](#project-overview)
-- [Folder Structure](#folder-structure)
-- [Frontend (Angular)](#frontend-angular)
-  - [Features](#features)
-  - [Setup & Run](#setup--run)
-- [Backend](#backend)
-- [Contributing](#contributing)
-- [License](#license)
+AmazeCare is a comprehensive Hospital Management System designed to streamline operations for patients, doctors, hospital staff, and administrators. It consists of a Spring Boot-based backend (`amazecare-backend`) and an Angular-based frontend (`amazecare-frontend`).
 
 ---
 
-## Project Overview
-Amazecare provides a platform for managing hospitals, doctors, patients, appointments, assets, and more. It is designed for hospital administrators, doctors, employees, and patients to interact efficiently.
+## 🏗️ Project Structure
 
-## Folder Structure
-```
-amazecare-frontend/
-├── src/
-│   ├── app/
-│   │   ├── components/         # Angular components (UI, dashboards, etc.)
-│   │   ├── interceptors/       # HTTP interceptors (e.g., JWT)
-│   │   ├── models/             # TypeScript models
-│   │   └── services/           # Angular services (API, auth, etc.)
-│   ├── main.ts                 # Angular entry point
-│   └── styles.scss             # Global styles
-├── public/                     # Static assets
-├── angular.json                # Angular CLI config
-├── package.json                # NPM dependencies
-└── README.md                   # Project documentation
-```
 
-## Frontend (Angular)
-This is the main user interface for Amazecare, built with Angular.
+---
 
-### Features
-- User authentication (login/register)
-- Role-based dashboards (admin, doctor, employee, patient)
-- Manage hospitals, doctors, patients, appointments, assets, and requests
-- Responsive design
+## 🚀 Tech Stack
 
-### Setup & Run
-1. **Install dependencies:**
-   ```bash
-   npm install
-   ```
-2. **Run the development server:**
-   ```bash
-   npm start
-   # or
-   ng serve
-   ```
-3. **Open in browser:**
-   Visit [http://localhost:4200](http://localhost:4200)
+| Layer     | Technology                        |
+|-----------|-----------------------------------|
+| Frontend  | Angular 20, TypeScript, SCSS      |
+| Backend   | Spring Boot, JPA (Hibernate), JWT |
+| Database  | H2 (Dev), MySQL/PostgreSQL (Prod) |
+| Security  | JWT-based Auth, Role-based Access |
 
-> **Note:** Requires Node.js and Angular CLI installed globally.
+---
 
-## Backend
-The backend is not included in this repository. It is expected to provide RESTful APIs for authentication, data management, and business logic.
+## 🔐 Authentication & Authorization
 
-- **Tech stack:** (e.g., Node.js/Express, Django, etc. — update as appropriate)
-- **Repository:** (link to backend repo if available)
-- **API URL:** Configure the frontend to point to the backend API in the environment files (e.g., `src/environments/environment.ts`).
+- **JWT Authentication**: Users log in via username/password. A JWT token is returned and stored on the frontend.
+- **Interceptors**: Angular HTTP Interceptor attaches the JWT token to all outgoing requests.
+- **Role-based Access Control**: Admin, Doctor, Patient, and Employee dashboards enforce access controls accordingly.
 
-## Contributing
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/YourFeature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin feature/YourFeature`)
-5. Open a pull request
+See [JWT Interceptor Implementation](#🔧-frontend-angular-key-features) for more.
 
-## License
-[MIT](LICENSE) (or specify your license)
+---
+
+## 📦 Backend: Spring Boot Features
+
+### ✅ Key Features
+
+- **JWT-based Authentication**
+- **Role-based Authorization**
+- **RESTful APIs for Core Entities**
+- **Global Exception Handling**
+- **DTO-based Request/Response Mapping**
+- **Service Layer Abstraction**
+- **Data Validation via Jakarta Validator**
+- **Cross-Origin Config for Angular Frontend**
+
+### 📂 Major Backend Packages
+
+
+### 🔧 Exposed REST APIs
+
+- **Auth**: `/api/auth/login`, `/api/auth/register`
+- **Admin**: Manage all entities
+- **Doctor**: View appointments, write consultations
+- **Employee**: Schedule appointments, request assets
+- **Patient**: Book appointments, view doctors, consult history
+
+Entities: `Admin`, `Doctor`, `Patient`, `Employee`, `Appointment`, `Consultation`, `Hospital`, `Asset`, `AssetRequest`
+
+---
+
+## 💻 Frontend: Angular Features
+
+### ✅ Key Modules
+
+- **Admin Dashboard**: Full CRUD (Doctors, Patients, Employees, Hospitals, Assets, etc.)
+- **Doctor Dashboard**: View appointments, write consultations
+- **Patient Dashboard**: Book appointments, view consult history
+- **Employee Dashboard**: Schedule appointments, request assets
+- **Login Page**: JWT-based login (no registration page)
+- **Standalone Components** using Angular 20
+
+### 🧠 JWT Interceptor (from chat "Create JWT Interceptor")
+
+- Adds JWT token to outgoing HTTP requests
+- Handles 401/403 errors to redirect to login
+- Uses `AuthService` for token handling
+
+```ts
+// jwt.interceptor.ts (sample)
+intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  const token = this.authService.getToken();
+  if (token) {
+    req = req.clone({
+      setHeaders: { Authorization: `Bearer ${token}` }
+    });
+  }
+  return next.handle(req);
+}
