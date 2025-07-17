@@ -54,7 +54,7 @@ See [JWT Interceptor Implementation](#🔧-frontend-angular-key-features) for mo
 - **Employee**: Schedule appointments, request assets
 - **Patient**: Book appointments, view doctors, consult history
 
-Entities: `Admin`, `Doctor`, `Patient`, `Employee`, `Appointment`, `Consultation`, `Hospital`, `Asset`, `AssetRequest`
+Models: `Admin`, `Doctor`, `Patient`, `Employee`, `Appointment`, `Consultation`, `Hospital`, `Asset`, `AssetRequest`
 
 ---
 
