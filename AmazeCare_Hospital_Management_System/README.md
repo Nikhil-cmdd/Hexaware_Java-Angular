@@ -15,7 +15,7 @@ AmazeCare is a comprehensive Hospital Management System designed to streamline o
 |-----------|-----------------------------------|
 | Frontend  | Angular 20, TypeScript, SCSS      |
 | Backend   | Spring Boot, JPA (Hibernate), JWT |
-| Database  | H2 (Dev), MySQL/PostgreSQL (Prod) |
+| Database  | MySQL |
 | Security  | JWT-based Auth, Role-based Access |
 
 ---
@@ -25,8 +25,6 @@ AmazeCare is a comprehensive Hospital Management System designed to streamline o
 - **JWT Authentication**: Users log in via username/password. A JWT token is returned and stored on the frontend.
 - **Interceptors**: Angular HTTP Interceptor attaches the JWT token to all outgoing requests.
 - **Role-based Access Control**: Admin, Doctor, Patient, and Employee dashboards enforce access controls accordingly.
-
-See [JWT Interceptor Implementation](#🔧-frontend-angular-key-features) for more.
 
 ---
 
